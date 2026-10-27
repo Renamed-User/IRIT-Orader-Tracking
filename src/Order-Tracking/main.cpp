@@ -10,7 +10,19 @@
 #include "request_status_repository.h"
 #include "transaction.h"
 #include "constants.h"
+#include "password.h"
 
+
+/*
+// всё что внутри - без изменений
+{
+    Transaction tx(db);                                  
+    db.exec("UPDATE products SET stock_quantity = 0");   
+    printQuery(db, "SELECT name, stock_quantity FROM products");
+}
+*/
+
+/*
 void printQuery(Database& db, const std::string& sql) {
     sqlite3_stmt* st = nullptr;
     if (sqlite3_prepare_v2(db.handle(), sql.c_str(), -1, &st, nullptr) != SQLITE_OK) {
@@ -29,6 +41,8 @@ void printQuery(Database& db, const std::string& sql) {
     }
     sqlite3_finalize(st);
 }
+*/
+
 int main()
 {
 	SetConsoleOutputCP(CP_UTF8);
@@ -43,7 +57,8 @@ int main()
         RequestRepository requests(db);
         RequestItemRepository items(db);
 
-        printQuery(db, "SELECT * FROM products");
+        UserRepository users(db);
+        
 
     }
     catch (const std::exception& e) {

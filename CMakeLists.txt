@@ -30,7 +30,9 @@ target_include_directories(${PROJECT_NAME} PUBLIC
     "src/repos/" 
     "src/models/"
     "src/services/"
-    "src/ui/")
+    "src/ui/"
+    "src/utils/"
+    "src/third_party/picosha/")
 
 target_compile_definitions(IRIT_Order_Tracking PRIVATE
     DB_PATH="${CMAKE_SOURCE_DIR}/src/database/database.db")
