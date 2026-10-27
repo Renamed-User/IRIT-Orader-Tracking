@@ -1,5 +1,0 @@
-out/
-.vs/
-.gitattributes
-.gitignore
-CMakePresets.json

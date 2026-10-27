@@ -5,19 +5,21 @@ project(IRIT_Order_Tracking VERSION 0.0.1 LANGUAGES C CXX)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-add_library(sqlite3 STATIC
-    "${CMAKE_CURRENT_SOURCE_DIR}/src/third_party/sqlite/sqlite3.c"
-    "${CMAKE_CURRENT_SOURCE_DIR}/src/third_party/sqlite/sqlite3.h"
-    "${CMAKE_CURRENT_SOURCE_DIR}/src/third_party/sqlite/sqlite3ext.h"
-)
-set_target_properties(sqlite3 PROPERTIES LINKER_LANGUAGE C)
-target_include_directories(sqlite3 PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/src/third_party/sqlite")
-
 add_executable(${PROJECT_NAME}
-    "${CMAKE_CURRENT_SOURCE_DIR}/src/Order-Tracking/main.cpp"
-)
+    "src/Order-Tracking/main.cpp"
+    "src/database/database.cpp")
 
+add_library(sqlite3 STATIC
+    "src/third_party/sqlite/sqlite3.c"
+    "src/third_party/sqlite/sqlite3.h"
+    "src/third_party/sqlite/sqlite3ext.h")
+set_target_properties(sqlite3 PROPERTIES LINKER_LANGUAGE C)
+target_include_directories(sqlite3 PUBLIC "src/third_party/sqlite")
 target_link_libraries(${PROJECT_NAME} PRIVATE sqlite3)
+
+target_include_directories(${PROJECT_NAME} PUBLIC "src/database/")
+target_compile_definitions(IRIT_Order_Tracking PRIVATE
+    DB_PATH="${CMAKE_SOURCE_DIR}/src/database/database.db")
 
 if(NOT WIN32)
     target_link_libraries(${PROJECT_NAME} PRIVATE ${CMAKE_DL_LIBS})
