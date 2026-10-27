@@ -7,7 +7,7 @@ actor "Завхоз" as Caretaker
 rectangle "Order Tracking" {
 
     usecase "Авторизация" as UC_LoginEmployee
-    usecase "Просмтотр своих заявок" as UC_ViewOwnRequests
+    usecase "Просмотр своих заявок" as UC_ViewOwnRequests
     usecase "Просмотр каталога" as UC_ViewCatalog
     usecase "Создание заявки" as UC_CreateRequest
 

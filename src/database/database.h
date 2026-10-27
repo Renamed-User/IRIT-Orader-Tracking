@@ -13,6 +13,7 @@ public:
     sqlite3* handle() const { return db_; }
     void exec(const std::string& sql);
 
+    long long lastInsertId() const;
 private:
     sqlite3* db_ = nullptr;
 };

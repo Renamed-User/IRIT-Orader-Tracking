@@ -22,3 +22,7 @@ void Database::exec(const std::string& sql) {
         throw std::runtime_error("Ошибка SQL: " + msg);
     }
 }
+
+long long Database::lastInsertId() const {
+    return sqlite3_last_insert_rowid(db_);
+}

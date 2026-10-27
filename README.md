@@ -15,34 +15,52 @@ IRIT-Order-Tracking — консольное приложение для упр�
 IRIT-Order-Tracking/
 │
 ├── CMakeLists.txt        # Главный конфигурационный файл сборки CMake
-├── LICENSE.txt           
-├── README.md             
+├── LICENSE.txt 
+├── README.md    
 │
-├── docs/                 # Документация
+├── docs/                 # Документация проекта
 │   └── diagrams/         
-│       ├── er-diagram.png
-│       ├── Use-Case-uml.mdpuml
-│       ├── Регистрация.png
-│       ├── Завхоз.png
-│       └── Сотрудник.png
+│       ├── er-diagram.png    
+│       ├── Use-Case-uml.mdpuml 
+│       ├── Завхоз.png         
+│       └── Сотрудник.png      
 │
-├── src/                  
+├── src/                  # Исходный код приложения
 │   ├── database/         
-│   │   ├── database.cpp  # Реализация класса Database: открытие/закрытие соединения, выполнение запросов, обработка ошибок
-│   │   ├── database.h    # Объявление класса Database
-│   │   ├── database.db   
-│   │   └── schema.sql    
+│   │   ├── database.cpp      # Реализация класса Database (открытие/закрытие соединения, выполнение запросов, обработка ошибок)
+│   │   ├── database.h        # Объявление класса Database
+│   │   ├── database.db       
+│   │   ├── schema.sql        # Скрипт инициализации структуры БД (таблицы, индексы)
+│   │   ├── statement.cpp     # Реализация обертки для подготовленных запросов 
+│   │   └── statement.h       # Объявление класса Statement
+│   │
+│   ├── models/          
+│   │   ├── category.h        
+│   │   ├── product.h        
+│   │   ├── request.h        
+│   │   ├── request_item.h    
+│   │   ├── request_status.h  
+│   │   ├── role.h            
+│   │   └── user.h            
 │   │
 │   ├── Order-Tracking/   
-│   │   └── main.cpp      
+│   │   └── main.cpp         
 │   │
-│   └── third_party/      # Сторонние зависимости и библиотеки
-│       └── sqlite/       
-│           ├── sqlite3.c
-│           ├── sqlite3.h
-│           └── sqlite3ext.h
+│   ├── repos/            
+│   │   ├── user_repository.cpp 
+│   │   └── user_repository.h 
+│   │
+│   ├── services/         
+│   │
+│   ├── third_party/      # Сторонние зависимости и библиотеки
+│   │   └── sqlite/       
+│   │       ├── sqlite3.c
+│   │       ├── sqlite3.h
+│   │       └── sqlite3ext.h
+│   │
+│   └── ui/             
 │
-└── tests/
+└── tests/                
 ```
 # Остальное
 Потом

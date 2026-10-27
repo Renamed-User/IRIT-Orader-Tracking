@@ -12,7 +12,7 @@ DROP TABLE IF EXISTS roles;
 -- ---------- Справочники ----------
 CREATE TABLE roles (
     role_id INTEGER PRIMARY KEY AUTOINCREMENT,
-    name TEXT NOT NULL UNIQUE            -- 'Employee' / 'Caretaker'
+    name TEXT NOT NULL UNIQUE            -- 'Сотрудник' / 'Завхоз'
 );
 
 CREATE TABLE request_statuses (
@@ -64,7 +64,7 @@ CREATE TABLE request_items (
 );
 
 -- ---------- Тестовые данные ----------
-INSERT INTO roles (name) VALUES ('Employee'), ('Caretaker');
+INSERT INTO roles (name) VALUES ('Сотрудник'), ('Завхоз');
 
 INSERT INTO request_statuses (name)
 VALUES ('Новая'), ('Сборка'), ('Готова к выдаче'), ('Отклонена');
