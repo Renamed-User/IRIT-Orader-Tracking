@@ -1,0 +1,34 @@
+@startuml IRIT_Order-Tracking Use Case
+left to right direction
+
+actor "Сотрудник" as Employee
+actor "Завхоз" as Caretaker
+
+rectangle "Order Tracking" {
+
+    usecase "Авторизация" as UC_LoginEmployee
+    usecase "Просмтотр своих заявок" as UC_ViewOwnRequests
+    usecase "Просмотр каталога" as UC_ViewCatalog
+    usecase "Создание заявки" as UC_CreateRequest
+
+    usecase "Авторизация" as UC_LoginCaretaker
+    usecase "Регистрация нового пользователя" as UC_RegisterCaretaker
+    usecase "Редактирование каталога" as UC_EditCatalog
+    usecase "Управление остатками" as UC_ManageInventory
+    usecase "Управление заявками" as UC_ManageRequests
+}
+
+Employee -- UC_LoginEmployee
+UC_LoginEmployee -- UC_ViewOwnRequests
+UC_LoginEmployee -- UC_ViewCatalog
+UC_LoginEmployee -- UC_CreateRequest
+
+
+
+Caretaker -- UC_LoginCaretaker
+UC_LoginCaretaker -- UC_RegisterCaretaker
+UC_LoginCaretaker -- UC_EditCatalog
+UC_LoginCaretaker -- UC_ManageInventory
+UC_LoginCaretaker -- UC_ManageRequests
+
+@enduml
