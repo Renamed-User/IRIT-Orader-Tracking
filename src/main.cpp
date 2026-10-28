@@ -16,6 +16,9 @@
 #include "constants.h"
 #include "catalog_service.h"
 #include "request_service.h"
+#include "auth_ui.h"
+#include "employee_menu.h"
+#include "caretaker_menu.h"
 
 
 /*
@@ -50,34 +53,35 @@ void printQuery(Database& db, const std::string& sql) {
 
 int main()
 {
-	SetConsoleOutputCP(CP_UTF8);
-	SetConsoleCP(CP_UTF8);
-
+    SetConsoleOutputCP(CP_UTF8);
+    SetConsoleCP(CP_UTF8);
 
     try {
         Database db(DB_PATH);
-        ProductRepository products(db);
-        RequestStatusRepository statuses(db);
-        RequestRepository requests(db);
-        RequestItemRepository items(db);
+
         UserRepository users(db);
         RoleRepository roles(db);
-        AuthService auth(users, roles);
+        ProductRepository products(db);
         CategoryRepository categories(db);
-        CatalogService catalog(products, categories, items);
-        RequestItemRepository reqItems(db);
-        RequestService reqService(db, requests, reqItems, products, statuses);
+        RequestRepository requests(db);
+        RequestItemRepository requestItems(db);
+        RequestStatusRepository statuses(db);
 
-        auto ivanov = auth.authenticate("ivanov", "user123");
-        auto caretaker = auth.authenticate("caretaker1", "admin123");
+        AuthService auth(users, roles);
+        CatalogService catalog(products, categories, requestItems);
+        RequestService requestService(db, requests, requestItems, products, statuses);
 
+        std::optional<User> user = loginScreen(auth);
+        if (!user) return 0;                     // пустой логин = выход
 
-        
-
+        if (user->role_name == role::EMPLOYEE)
+            employeeMenu(*user, catalog, requestService);
+        else if (user->role_name == role::CARETAKER)
+            caretakerMenu(*user, auth, catalog, requestService);
     }
     catch (const std::exception& e) {
-        std::cout << "Ошибка: " << e.what() << std::endl;
+        std::cout << "Критическая ошибка: " << e.what() << std::endl;
+        return 1;
     }
-
-	return 0;
+    return 0;
 }

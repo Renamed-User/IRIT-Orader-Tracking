@@ -34,6 +34,7 @@ public:
     // Сотрудник
     int createRequest(const User& actor, const std::vector<NewRequestItem>& items);
     std::vector<Request> getOwnRequests(const User& actor);
+    void cancelOwnRequest(const User& actor, int requestId);   // Новая -> Отменена
 
     // Сотрудник (только свои заявки) и Завхоз (любые)
     std::vector<RequestItem> getRequestItems(const User& actor, int requestId);
@@ -43,6 +44,7 @@ public:
     void approve(const User& actor, int requestId);     // Новая -> Сборка (со списанием остатков)
     void reject(const User& actor, int requestId);      // Новая -> Отклонена
     void markReady(const User& actor, int requestId);   // Сборка -> Готова к выдаче
+    void markIssued(const User& actor, int requestId);  // Готова к выдаче -> Выдана
 
 private:
     static void requireCaretaker(const User& actor);

@@ -24,7 +24,7 @@ std::optional<Product> ProductRepository::getById(int productId) {
 }
 
 std::vector<Product> ProductRepository::getAll() {
-    Statement st(db_, kSelectProduct + "ORDER BY c.name, p.name");
+    Statement st(db_, kSelectProduct + "ORDER BY p.product_id");
     std::vector<Product> result;
     while (st.step()) result.push_back(map(st));
     return result;
@@ -46,13 +46,6 @@ void ProductRepository::update(int productId, const std::string& name, int categ
     st.bind(1, name);
     st.bind(2, categoryId);
     st.bind(3, productId);
-    st.step();
-}
-
-void ProductRepository::setStock(int productId, int quantity) {
-    Statement st(db_, "UPDATE products SET stock_quantity = ? WHERE product_id = ?");
-    st.bind(1, quantity);
-    st.bind(2, productId);
     st.step();
 }
 

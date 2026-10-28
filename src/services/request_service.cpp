@@ -108,3 +108,24 @@ void RequestService::markReady(const User& actor, int requestId) {
     requireStatus(r, status::ASSEMBLY);
     requests_.updateStatus(requestId, statusId(status::READY));
 }
+
+void RequestService::markIssued(const User& actor, int requestId) {
+    requireCaretaker(actor);
+    Request r = requireRequest(requestId);
+    requireStatus(r, status::READY);
+    requests_.updateStatus(requestId, statusId(status::ISSUED));
+}
+
+void RequestService::cancelOwnRequest(const User& actor, int requestId) {
+    if (actor.role_name != role::EMPLOYEE)
+        throw std::runtime_error("Отменять свои заявки может только Сотрудник");
+
+    Request r = requireRequest(requestId);
+    if (r.user_id != actor.user_id)
+        throw std::runtime_error("Заявка не найдена");           // чужие заявки недоступны
+    if (r.status_name != status::NEW)
+        throw std::runtime_error("Отменить можно только заявку в статусе «" +
+            std::string(status::NEW) + "» (сейчас: «" + r.status_name + "»)");
+
+    requests_.updateStatus(requestId, statusId(status::CANCELLED));
+}

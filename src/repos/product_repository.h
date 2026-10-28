@@ -19,7 +19,6 @@ public:
 
     // Update
     void update(int productId, const std::string& name, int categoryId);
-    void setStock(int productId, int quantity);      // выставить остаток равным числу
     void changeStock(int productId, int delta);      // прибавить (delta > 0) или списать (delta < 0)
 
     // Delete

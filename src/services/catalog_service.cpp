@@ -63,13 +63,6 @@ void CatalogService::removeProduct(const User& actor, int productId) {
     products_.remove(productId);
 }
 
-void CatalogService::setStock(const User& actor, int productId, int quantity) {
-    requireCaretaker(actor);
-    requireProduct(productId);
-    if (quantity < 0) throw std::runtime_error("Остаток не может быть отрицательным");
-    products_.setStock(productId, quantity);
-}
-
 void CatalogService::changeStock(const User& actor, int productId, int delta) {
     requireCaretaker(actor);
     Product p = requireProduct(productId);

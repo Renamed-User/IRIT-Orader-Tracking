@@ -23,7 +23,6 @@ public:
     int addProduct(const User& actor, const std::string& name, int categoryId, int stockQuantity);
     void editProduct(const User& actor, int productId, const std::string& name, int categoryId);
     void removeProduct(const User& actor, int productId);
-    void setStock(const User& actor, int productId, int quantity);
     void changeStock(const User& actor, int productId, int delta);
 
 private:

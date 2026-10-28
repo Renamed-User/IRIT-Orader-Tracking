@@ -10,4 +10,6 @@ namespace status {
     inline constexpr const char* ASSEMBLY = "Сборка";
     inline constexpr const char* READY = "Готова к выдаче";
     inline constexpr const char* REJECTED = "Отклонена";
+    inline constexpr const char* ISSUED = "Выдана";
+    inline constexpr const char* CANCELLED = "Отменена";
 }

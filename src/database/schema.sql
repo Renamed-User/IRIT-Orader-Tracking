@@ -17,7 +17,7 @@ CREATE TABLE roles (
 
 CREATE TABLE request_statuses (
     status_id INTEGER PRIMARY KEY AUTOINCREMENT,
-    name TEXT NOT NULL UNIQUE            -- Новая, Сборка, Готова к выдаче, Отклонена
+    name TEXT NOT NULL UNIQUE            -- Новая, Сборка, Готова к выдаче, Отклонена, Выдана, Отменена
 );
 
 CREATE TABLE categories (
@@ -67,7 +67,7 @@ CREATE TABLE request_items (
 INSERT INTO roles (name) VALUES ('Сотрудник'), ('Завхоз');
 
 INSERT INTO request_statuses (name)
-VALUES ('Новая'), ('Сборка'), ('Готова к выдаче'), ('Отклонена');
+VALUES ('Новая'), ('Сборка'), ('Готова к выдаче'), ('Отклонена'), ('Выдана'), ('Отменена');
 
 INSERT INTO categories (name)
 VALUES ('Бумага'), ('Письменные принадлежности'), ('Офисные мелочи');
