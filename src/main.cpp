@@ -72,7 +72,7 @@ int main()
         RequestService requestService(db, requests, requestItems, products, statuses);
 
         std::optional<User> user = loginScreen(auth);
-        if (!user) return 0;                     // пустой логин = выход
+        if (!user) return 0;
 
         if (user->role_name == role::EMPLOYEE)
             employeeMenu(*user, catalog, requestService);

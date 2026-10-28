@@ -66,7 +66,6 @@ namespace {
                 printRequestItems(requests.getRequestItems(user, id));
 
                 if (selected->status_name == status::ASSEMBLY) {
-                    requests.markReady(user, id);
                     if (askYesNo("Заявка готова к выдаче?")) {
                         requests.markReady(user, id);
                         std::cout << "Статус изменён: " << status::READY << "\n";
