@@ -63,41 +63,16 @@ int main()
         UserRepository users(db);
         RoleRepository roles(db);
         AuthService auth(users, roles);
-
         CategoryRepository categories(db);
         CatalogService catalog(products, categories, items);
+        RequestItemRepository reqItems(db);
+        RequestService reqService(db, requests, reqItems, products, statuses);
 
         auto ivanov = auth.authenticate("ivanov", "user123");
         auto caretaker = auth.authenticate("caretaker1", "admin123");
 
-        RequestItemRepository reqItems(db);
-        RequestService reqService(db, requests, reqItems, products, statuses);
 
-        // Сотрудник: бумага (товар 1) дважды + степлер (товар 4); повтор должен слиться в одну строку
-        int id = reqService.createRequest(*ivanov, { { 1, 2 },{ 1, 3 },{ 4, 1 } });
-        for (const RequestItem& it : reqService.getRequestItems(*ivanov, id))
-            std::cout << "Заявка #" << id << ": " << it.product_name << " x" << it.quantity << std::endl;
-
-        // Нехватка: 1000 ручек (на складе 200)
-        int big = reqService.createRequest(*ivanov, { { 2, 1000 } });
-        try { reqService.approve(*caretaker, big); }
-        catch (const InsufficientStockError& e) { std::cout << "Ожидаемая ошибка: " << e.what() << std::endl; }
-        std::cout << "Статус заявки #" << big << ": " << requests.getById(big)->status_name << std::endl;
-
-        // Нормальное одобрение
-        reqService.approve(*caretaker, id);
-        std::cout << "Остаток бумаги: " << products.getById(1)->stock_quantity << std::endl;   // было 40
-        reqService.markReady(*caretaker, id);
-        std::cout << "Статус заявки #" << id << ": " << requests.getById(id)->status_name << std::endl;
-
-        try { reqService.approve(*caretaker, id); }       // повторно нельзя
-        catch (const std::exception& e) { std::cout << "Ожидаемая ошибка: " << e.what() << std::endl; }
-
-        try { reqService.getRequestItems(*ivanov, 2); }   // заявка №2 принадлежит Петровой
-        catch (const std::exception& e) { std::cout << "Ожидаемая ошибка: " << e.what() << std::endl; }
-
-        reqService.reject(*caretaker, big);
-        std::cout << "Статус заявки #" << big << ": " << requests.getById(big)->status_name << std::endl;
+        
 
     }
     catch (const std::exception& e) {
