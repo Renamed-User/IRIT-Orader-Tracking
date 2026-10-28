@@ -92,7 +92,7 @@ namespace {
 
 void employeeMenu(const User& user, CatalogService& catalog, RequestService& requests) {
     while (true) {
-        std::cout << "\n===== Сотрудник (" << user.login << ") =====\n"
+        std::cout << "\n===== Сотрудник (" << user.full_name << ") =====\n"
             << "1. Мои заявки\n"
             << "2. Каталог\n"
             << "3. Создать заявку\n"

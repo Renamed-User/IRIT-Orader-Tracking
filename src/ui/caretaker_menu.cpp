@@ -184,7 +184,7 @@ namespace {
 void caretakerMenu(const User& user, AuthService& auth, CatalogService& catalog,
     RequestService& requests) {
     while (true) {
-        std::cout << "\n===== Завхоз (" << user.login << ") =====\n"
+        std::cout << "\n===== Завхоз (" << user.full_name << ") =====\n"
             << "1. Управление заявками\n"
             << "2. Редактирование каталога\n"
             << "3. Изменить остаток\n"
