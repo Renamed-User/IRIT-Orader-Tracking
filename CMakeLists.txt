@@ -15,7 +15,10 @@ add_executable(${PROJECT_NAME}
     "src/repos/request_status_repository.cpp"
     "src/repos/product_repository.cpp"
     "src/repos/request_repository.cpp"
-    "src/repos/request_item_repository.cpp")
+    "src/repos/request_item_repository.cpp"
+    "src/services/auth_service.cpp"
+    "src/services/catalog_service.cpp"
+    "src/services/request_service.cpp")
 
 add_library(sqlite3 STATIC
     "src/third_party/sqlite/sqlite3.c"

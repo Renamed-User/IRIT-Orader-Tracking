@@ -12,6 +12,8 @@ public:
     std::optional<Role> getById(int roleId);
     std::vector<Role> getAll();
 
+    std::optional<Role> getByName(const std::string& name);
+
 private:
     static Role map(Statement& st);
     Database& db_;

@@ -20,3 +20,10 @@ std::vector<Role> RoleRepository::getAll() {
     while (st.step()) result.push_back(map(st));
     return result;
 }
+
+std::optional<Role> RoleRepository::getByName(const std::string& name) {
+    Statement st(db_, "SELECT role_id, name FROM roles WHERE name = ?");
+    st.bind(1, name);
+    if (st.step()) return map(st);
+    return std::nullopt;
+}
