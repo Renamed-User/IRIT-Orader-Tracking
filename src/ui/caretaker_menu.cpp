@@ -182,13 +182,14 @@ namespace {
 }  // namespace
 
 void caretakerMenu(const User& user, AuthService& auth, CatalogService& catalog,
-    RequestService& requests) {
+    RequestService& requests, ExportService& exporter) {
     while (true) {
         std::cout << "\n===== Завхоз (" << user.full_name << ") =====\n"
             << "1. Управление заявками\n"
             << "2. Редактирование каталога\n"
             << "3. Изменить остаток\n"
             << "4. Регистрация пользователя\n"
+            << "5. Выгрузить данные в файлы\n"
             << "0. Выход\n";
         int choice = readInt("Выберите действие: ");
 
@@ -197,6 +198,10 @@ void caretakerMenu(const User& user, AuthService& auth, CatalogService& catalog,
             else if (choice == 2) editCatalogMenu(user, catalog);
             else if (choice == 3) changeStockScreen(user, catalog);
             else if (choice == 4) registerUserScreen(auth, user);
+            else if (choice == 5) {
+                exporter.exportData();
+                std::cout << "Данные выгружены в папку out\n";
+            }
             else if (choice == 0) break;
             else                  std::cout << "Нет такого пункта\n";
         }

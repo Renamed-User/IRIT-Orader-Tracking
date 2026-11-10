@@ -19,6 +19,7 @@ add_executable(${PROJECT_NAME}
     "src/services/auth_service.cpp"
     "src/services/catalog_service.cpp"
     "src/services/request_service.cpp"
+    "src/services/export_service.cpp"
     "src/ui/printing.cpp"
     "src/ui/auth_ui.cpp"
     "src/ui/employee_menu.cpp"
@@ -42,7 +43,8 @@ target_include_directories(${PROJECT_NAME} PUBLIC
     "src/libs/picosha/")
 
 target_compile_definitions(IRIT_Order_Tracking PRIVATE
-    DB_PATH="${CMAKE_SOURCE_DIR}/src/database/database.db")
+    DB_PATH="${CMAKE_SOURCE_DIR}/src/database/database.db" # Путь к БД!
+    EXPORT_DIR="${CMAKE_SOURCE_DIR}/out")
 
 if(NOT WIN32)
     target_link_libraries(${PROJECT_NAME} PRIVATE ${CMAKE_DL_LIBS})

@@ -19,6 +19,7 @@
 #include "auth_ui.h"
 #include "employee_menu.h"
 #include "caretaker_menu.h"
+#include "export_service.h"
 
 
 /*
@@ -70,6 +71,7 @@ int main()
         AuthService auth(users, roles);
         CatalogService catalog(products, categories, requestItems);
         RequestService requestService(db, requests, requestItems, products, statuses);
+        ExportService exporter(db, EXPORT_DIR);
 
         std::optional<User> user = loginScreen(auth);
         if (!user) return 0;
@@ -77,7 +79,7 @@ int main()
         if (user->role_name == role::EMPLOYEE)
             employeeMenu(*user, catalog, requestService);
         else if (user->role_name == role::CARETAKER)
-            caretakerMenu(*user, auth, catalog, requestService);
+            caretakerMenu(*user, auth, catalog, requestService, exporter);
     }
     catch (const std::exception& e) {
         std::cout << "Критическая ошибка: " << e.what() << std::endl;
